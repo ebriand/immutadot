@@ -27,7 +27,7 @@
     "eslint": "~4.18.0",
     "greenkeeper-lockfile": "~1.13.2",
     "hotdoc": "~0.7.2",
-    "jest": "~21.2.1",
+    "jest": "~22.1.4",
     "jsdoc": "~3.5.5",
     "lerna": "~3.0.0-alpha.0",
     "lodash": "~4.17.4",
