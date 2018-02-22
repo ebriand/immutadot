@@ -14,8 +14,8 @@ describe('core.convert', () => {
       other: {},
     },
     ['nested.prop'],
-    input => {
-      const output = immutableInc(input, 'nested.prop')
+    (input, [path]) => {
+      const output = immutableInc(input, path)
       expect(output).toEqual({
         nested: { prop: 6 },
         other: {},
@@ -28,8 +28,8 @@ describe('core.convert', () => {
       other: {},
     },
     ['nested.prop'],
-    input => {
-      const output = immutableInc(input, 'nested.prop', 2)
+    (input, path) => {
+      const output = immutableInc(input, path, 2)
       expect(output).toEqual({
         nested: { prop: 7 },
         other: {},
