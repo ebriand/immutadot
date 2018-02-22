@@ -4,49 +4,65 @@ import { set } from 'core'
 
 describe('core.set', () => {
   it('should set a prop', () => {
-    immutaTest((input, path) => {
-      const output = set(input, path, 'final')
-      expect(output).toEqual({
-        nested: { prop: 'final' },
+    immutaTest(
+      {
+        nested: { prop: 'initial' },
         other: {},
-      })
-      return output
-    }, {
-      nested: { prop: 'initial' },
-      other: {},
-    }, 'nested.prop')
+      },
+      ['nested.prop'],
+      (input, path) => {
+        const output = set(input, path, 'final')
+        expect(output).toEqual({
+          nested: { prop: 'final' },
+          other: {},
+        })
+        return output
+      },
+    )
   })
 
   it('should set a value in an array', () => {
-    immutaTest(input => {
-      const output = set(input, 'nested.prop[0]', 'final')
-      expect(output).toEqual({
-        nested: { prop: ['final', 'other'] },
+    immutaTest(
+      {
+        nested: { prop: ['initial', 'other'] },
         other: {},
-      })
-      return output
-    }, {
-      nested: { prop: ['initial', 'other'] },
-      other: {},
-    }, 'nested.prop.0')
+      },
+      ['nested.prop.0'],
+      input => {
+        const output = set(input, 'nested.prop[0]', 'final')
+        expect(output).toEqual({
+          nested: { prop: ['final', 'other'] },
+          other: {},
+        })
+        return output
+      },
+    )
   })
 
   it('should set a deep undefined prop', () => {
-    immutaTest((input, path) => {
-      const output = set(input, path, 'final')
-      expect(output).toEqual({ nested: { prop: 'final' } })
-      return output
-    }, undefined, 'nested.prop')
+    immutaTest(
+      undefined,
+      ['nested.prop'],
+      (input, path) => {
+        const output = set(input, path, 'final')
+        expect(output).toEqual({ nested: { prop: 'final' } })
+        return output
+      },
+    )
   })
 
   it('should set a deep undefined prop within an array', () => {
-    immutaTest(input => {
-      const output = set(input, 'nested.prop[0]', 'final')
-      expect(output).toEqual({
-        nested: { prop: ['final'] },
-        other: {},
-      })
-      return output
-    }, { other: {} }, 'nested.prop.0')
+    immutaTest(
+      { other: {} },
+      ['nested.prop.0'],
+      input => {
+        const output = set(input, 'nested.prop[0]', 'final')
+        expect(output).toEqual({
+          nested: { prop: ['final'] },
+          other: {},
+        })
+        return output
+      },
+    )
   })
 })
